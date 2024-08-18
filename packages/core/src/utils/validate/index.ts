@@ -33,3 +33,11 @@ export function isElementOf(node?: ReactNode, type?: JSXElementConstructor<any>)
 }
 
 export const isDef = <T>(val: T): val is NonNullable<T> => val !== undefined && val !== null
+
+export const isNumber = (value: any): value is number => {
+  try {
+    return Number(value) === value
+  } catch {
+    return false
+  }
+}

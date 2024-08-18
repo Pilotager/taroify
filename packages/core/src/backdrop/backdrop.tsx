@@ -3,13 +3,13 @@ import { View } from "@tarojs/components"
 import { ITouchEvent } from "@tarojs/components/types/common"
 import { ViewProps } from "@tarojs/components/types/View"
 import classNames from "classnames"
-import * as _ from "lodash"
 import * as React from "react"
 import { CSSProperties, ReactNode, useMemo } from "react"
 import { prefixClassname } from "../styles"
 import Transition from "../transition"
 import { preventDefault } from "../utils/dom/event"
 import { useLockScrollTaro } from "../utils/dom/use-lock-scroll-taro"
+import { isNumber } from "../utils/validate/index"
 
 interface BackdropProps extends ViewProps {
   style?: CSSProperties
@@ -46,7 +46,7 @@ export default function Backdrop(props: BackdropProps) {
   useLockScrollTaro(!!open && lock)
 
   const durationStyle = useMemo(
-    () => (_.isNumber(duration) ? { "--animation-duration-base": `${duration as number}ms` } : {}),
+    () => (isNumber(duration) ? { "--animation-duration-base": `${duration as number}ms` } : {}),
     [duration],
   )
 
