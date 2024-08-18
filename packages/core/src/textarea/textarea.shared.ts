@@ -1,5 +1,3 @@
-import * as _ from "lodash"
-
 export type TextareaThemeVars = {
   textareaLineHeight?: string
   textareaFontSize?: string
@@ -12,5 +10,5 @@ export type TextareaThemeVars = {
 }
 
 export function getStringLength(chars: string = "") {
-  return _.size([...chars])
+  return [...chars].length
 }

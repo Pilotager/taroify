@@ -3,9 +3,9 @@ import { View } from "@tarojs/components"
 import { BaseEventOrig } from "@tarojs/components/types/common"
 import { InputProps as TaroInputProps } from "@tarojs/components/types/Input"
 import classNames from "classnames"
-import * as _ from "lodash"
 import * as React from "react"
 import { prefixClassname } from "../styles"
+import { isNumber } from "../utils/validate/index"
 import NativeTextarea, { NativeTextareaProps } from "./native-textarea"
 import { getStringLength } from "./textarea.shared"
 
@@ -29,7 +29,7 @@ function Textarea(props: TextareaProps) {
     onChange,
     ...restProps
   } = props
-  const maxlength = _.isNumber(limit) ? limit : maxlengthProp
+  const maxlength = isNumber(limit) ? limit : maxlengthProp
   const { value, setValue } = useUncontrolled({ value: valueProp })
 
   return (
