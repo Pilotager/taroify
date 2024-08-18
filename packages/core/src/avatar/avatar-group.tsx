@@ -1,16 +1,7 @@
 import { View } from "@tarojs/components"
 import classNames from "classnames"
-import * as _ from "lodash"
 import * as React from "react"
-import {
-  Children,
-  cloneElement,
-  isValidElement,
-  ReactChild,
-  ReactElement,
-  ReactNode,
-  useMemo,
-} from "react"
+import { Children, cloneElement, isValidElement, ReactElement, ReactNode, useMemo } from "react"
 import { prefixClassname } from "../styles"
 import { isElementOf } from "../utils/validate"
 import Avatar, { AvatarProps } from "./avatar"
@@ -25,7 +16,7 @@ const useAvatars = (
     const avatars = Children.toArray(children) //
       .filter((child) => isValidElement(child) && isElementOf(child, Avatar))
 
-    const avatarsSize = _.size(avatars)
+    const avatarsSize = avatars.length
     const luckyAvatars: ReactNode[] = []
     const length = Math.min(avatarsSize, limit)
 
@@ -34,7 +25,7 @@ const useAvatars = (
       : "medium"
 
     for (let index = 0; index < length; index++) {
-      const child = _.get(avatars, index) as ReactChild
+      const child = avatars[index]
       const element = child as ReactElement<AvatarProps>
       const { key, props } = element
       const { style, children, ...restProps } = props
