@@ -1,11 +1,11 @@
 import { View } from "@tarojs/components"
 import { ViewProps } from "@tarojs/components/types/View"
 import classNames from "classnames"
-import * as _ from "lodash"
 import * as React from "react"
 import { CSSProperties, ReactNode, useMemo, cloneElement } from "react"
 import { prefixClassname } from "../styles"
-import { isElementOf } from "../utils/validate"
+import { isElementOf, isNumber } from "../utils/validate"
+import { gt } from "../utils/util"
 
 export type BadgePosition = "top-left" | "top-right" | "bottom-left" | "bottom-right"
 
@@ -35,9 +35,7 @@ function Badge(props: BadgeProps): JSX.Element {
   const dot = contentProp === true || dotProp
   const content = useMemo(
     () =>
-      _.isNumber(contentProp)
-        ? _.toString(_.gt(contentProp, max) ? `${max}+` : contentProp)
-        : contentProp,
+      isNumber(contentProp) ? String(gt(contentProp, max) ? `${max}+` : contentProp) : contentProp,
     [contentProp, max],
   )
 
@@ -65,16 +63,18 @@ function Badge(props: BadgeProps): JSX.Element {
     // @ts-ignore
     return cloneElement(contentProp, {
       className,
-      children
+      children,
       // omit(props, 'content')
     })
   }
 
   if (hasChildren) {
-    return  <View className={classNames(prefixClassname("badge-wrapper"), className)} >
-      {children}
-      {(dot || content) && badge}
-    </View>
+    return (
+      <View className={classNames(prefixClassname("badge-wrapper"), className)}>
+        {children}
+        {(dot || content) && badge}
+      </View>
+    )
   }
 
   return badge
